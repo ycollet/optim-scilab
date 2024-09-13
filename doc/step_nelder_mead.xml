@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>step_nelder_mead</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>27-Nov-2006</DATE>
+  <SHORT_DESCRIPTION name="step_nelder_mead"> A step by step Nelder & Mead optimization method </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>[x_next,data_next,eval_Func,f_hist,x_hist] = step_nelder_mead(f_current,x_current,data_current,nm_mode)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>f_current</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the objective function value corresponding to x_current. If nm_mode, f_current must be a vector of 3 values corresponding
+       to each value of the simplex
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x_current</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the initial simplex (3 column vectors) or the current solution (1 column vectors) - depends on the value of nm_mode
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>data_current</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the state of the Nelder & Mead step by step optimization method. For the initial iteration, this parameter can be empty
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>nm_mode</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the mode of operation of the step by step Nelder & Mead. Can be:
+       - 'init': for the initial iteration
+       - 'run': during the computation of an iteration
+       - 'exit': to get the last solutions
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x_next</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a value for which the Nelder & Mead step by step optimization method wan't to compute the objective function or the best solution found so far (in 'init' mode)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>data_next</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the state of the step by step Nelder & Mead optimisation method to be transmitted for the next iteration
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>eval_Func</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the number of evaluation of the objective function
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>f_hist</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the value of the best objective function value for each iteration
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x_hist</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the current state of the simplex for each iteration (3 columns vector)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+     A step by step Nelder & Mead optimization method
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <EXAMPLE><![CDATA[
+    functoplot = hansen; // from Functions directory
+    ItMX = 100;
+    TOL  = 1e-4;
+    MaxEvalFunc = 400;
+    Min = get_min_bound_hansen();
+    Max = get_max_bouns_hansen();
+    
+    x_init(:,1) = (Max - Min).*rand(2, 1) + Min;
+    x_init(:,2) = (Max - Min).*rand(2, 1) + Min;
+    x_init(:,3) = (Max - Min).*rand(2, 1) + Min;
+    
+    f_init(1) = f(x_init(:,1));
+    f_init(2) = f(x_init(:,2));
+    f_init(3) = f(x_init(:,3));
+    
+    disp(x_init)
+    
+    // Initial iteration
+    
+    [x_next, data_next, eval_Func, f_hist, x_hist] = step_nelder_mead(f_init, x_init, [], 'init');
+    f_current = f(x_next);
+    printf('step_nelder_mead - Initial iteration: f = %f\n', f_current);
+
+    // Start the optimization
+    while eval_Func<MaxEvalFunc
+      [x_next, data_next, eval_Func, f_hist, x_hist] = step_nelder_mead(f_current, x_next, data_next, 'run');
+      f_current = f(x_next);
+      printf('step_nelder_mead - Iteration %d: f = %f\n', eval_Func, f_current);
+    end
+    
+    // Last iteration
+    [x_best, f_best, eval_Func, f_hist, x_hist] = step_nelder_mead(f_current, x_next, data_next, 'exit');
+    printf('step_nelder_mead: best value found: %f\n', f_best);
+    printf('step_nelder_mead: nb of function evaluation: %d\n', eval_Func);
+  ]]></EXAMPLE>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> optim_cg </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_dfp </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_bfgs </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_nelder_mead </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_steepest </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</MAN>

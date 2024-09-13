@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>optim_slp</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>8-Dec-2006</DATE>
+  <SHORT_DESCRIPTION name="optim_slp">  Optimization by Sequential Linear Programming </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>[x_opt,x_history,ml_history] = optim_slp(f,df,g,dg,x0,ItMX,delta_ml,upper,lower)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>f</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the objective function
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>df</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the gradient of the objective function - must be a column vector of size nbvar
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>g</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the constraints (g(x)<=0) - must be a column vector of size nbconstr
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>dg</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the gradient of the constraints - must be a matrix of size nbvar x nbconstr
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x0</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a starting point. If this point is not feasible, the SLP will look for a feasible solution. If the constraints are not feasible, the method stop with an error.
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>ItMX</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the maximum number of iteration
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>delta_ml</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the initial value of the move limits - must be a column vector of size nbvar
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>upper</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the upper bounds on x - must be a column vector of size nbvar
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>lower</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the lower bound oon x - must be a column vector of size nbvar
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x_opt</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the last solution computed by the SLP
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x_history</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a list of all the x's computed by the SLP (optional)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>ml_history</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a list of all the move limits computed by the SLP (optional)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+     This method implements the Sequential Linear Programming. At each iterations, the problem (objective function and constraints) is linearized.
+     Then, this problem is solved using linpro with an additionnal set of constraints on x: the new value of x must not be too far from the current value of x.
+     This "distance" is set up by delta_ml (delta move limits).
+     If x0 corresponds to a non feasible solution, then linpro looks for a first feasible solution using linpro(....,x0='v').
+     If this first solution is still not feasible, then the method stops with an error message (in fact, quapro stops with an error message).
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <EXAMPLE><![CDATA[
+  deff('y=f(x)','y=sum(x.^2)');
+  deff('y=df(x)','y=2*x');
+  deff('y=constraint(x)','y(1)=-[1 2]*x-[3 4]*x.^2+1; y(2) = -[1 4]*x-[4 5]*x.^2+2');
+  deff('y=df_constraint(x)','y=-[1 1;2 4]');
+  upper       = [2;2];
+  lower       = [-2; -2];
+  x0          = [2; 2];
+
+  ItMX        = 1000;
+  ItMX_SIP    = 10;
+  MaxEvalFunc = 1000;
+  delta_ml    = 0.1;
+
+  [x_opt, x_history, ml_history] = optim_slp(f, df, constraint, df_constraint, x0, ItMX, MaxEvalFunc, delta_ml, upper, lower, ItMX_SIP);
+
+  printf('Initial point\n');
+  printf('Value of the constraints (must be all negatives or null :'); disp(constraint(x0)');
+  printf('Value of the objective function : %f\n', f(x0));
+
+  printf('Final point\n');
+  printf('Value of the constraints (must be all negatives or null :'); disp(constraint(x_history($))');
+  printf('Value of the objective function : %f\n', f(x_history($)));
+
+  scf();
+  T = 1:length(x_history);
+  for i=1:length(x_history);
+    ListF(i) = f(x_history(i));
+  end
+  plot(T,ListF,'k');
+  xtitle('Evolution of the objective function','Iteration','F');
+
+  scf();
+  drawlater;
+  x = lower(1):(upper(1) - lower(1))/20:upper(1);
+  y = lower(2):(upper(2) - lower(2))/20:upper(2);
+  for i=1:size(x,2)
+    for j=1:size(y,2)
+      Z(i,j) = f([x(i) y(j)]);
+    end
+  end
+  contour(x,y,Z, 10);
+  xset('fpf',' ');
+
+  wId = waitbar(0,'Drawing results');
+  for i=1:StepPlot:length(x_history)
+    if (modulo(i/StepPlot, ceil((length(x_history)/StepPlot) / 10))==0) then
+      waitbar(floor(1000*i/length(x_history))/1000,wId);
+    end
+    plot(x_history(i)(1), x_history(i)(2), 'ro');
+    if (i~=length(x_history)) then
+      FrameColor = 'g-';
+    else
+      FrameColor = 'b-';
+    end
+    plot([x_history(i)(1) + ml_history(i)(1) x_history(i)(1) + ml_history(i)(1)],[x_history(i)(2) + ml_history(i)(2) x_history(i)(2) - ml_history(i)(2)], FrameColor);
+    plot([x_history(i)(1) - ml_history(i)(1) x_history(i)(1) - ml_history(i)(1)],[x_history(i)(2) + ml_history(i)(2) x_history(i)(2) - ml_history(i)(2)], FrameColor);
+    plot([x_history(i)(1) + ml_history(i)(1) x_history(i)(1) - ml_history(i)(1)],[x_history(i)(2) + ml_history(i)(2) x_history(i)(2) + ml_history(i)(2)], FrameColor);
+    plot([x_history(i)(1) + ml_history(i)(1) x_history(i)(1) - ml_history(i)(1)],[x_history(i)(2) - ml_history(i)(2) x_history(i)(2) - ml_history(i)(2)], FrameColor);
+    if (DispNum) then
+      xstring(x_history(i)(1) - ml_history(i)(1), x_history(i)(2) + ml_history(i)(2), string(i));
+    end
+  end
+  xtitle('SLP','x1','x2');
+  legends(['Move limits','Solution found'],[3,5],1);
+  drawnow;
+  winclose(wId);
+  ]]></EXAMPLE>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> optim_nelder_mead </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_sa </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+
+  <BIBLIO>
+    <SP>
+    G. Vanderplaats, "Numerical Optimization Techniques for Engineering Design: With Applications", McGraw-Hill, 1984
+    </SP>
+  </BIBLIO>
+
+  <USED_FUNCTIONS>
+     <SP>
+     linpro
+     </SP>
+  </USED_FUNCTIONS>
+</MAN>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>cond_strong_wolfe</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>27-Oct-2006</DATE>
+  <SHORT_DESCRIPTION name="cond_strong_wolfe"> a function which return true if the strong Wolfe decrease condition is verified for a given step size </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>answer = cond_strong_wolfe(xk,pk,f,fs,fk,fsk,alpha)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>xk</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : point where to test the Armijo condition
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>pk</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : search direction
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>f</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : objective function
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>fs</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : derivative function of the objective function
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>fk</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : value of the objective function  at point xk
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>fsk</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : value of the derivative function at point xk
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>alpha</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : value of the step to test
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>answer</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : %T if the strong Wolfe condition is verified
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+      Returns %T if the strong Wolfe condition is verified for a given step size. The strong Wolfe condition corresponds to the following expression:
+     </P>
+     </DESCRIPTION_ITEM>
+     <DESCRIPTION_ITEM>
+     <P>
+     Sufficient decrease condition: f(xk+alpha*pk) <= fk + c1*alpha*fsk'*pk
+     </P>
+     </DESCRIPTION_ITEM>
+     <DESCRIPTION_ITEM>
+     <P>
+     Curvature condition: abs(fs(xk+alpha*pk)'*pk)<=c2*abs(fsk'*pk)
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <EXAMPLE><![CDATA[
+     condtest = cond_cond_strong_wolfe;
+     ItMAX    = 100;
+     TOL      = 1e-4;
+     Log      = %T; // Display some informations during the line search run
+     h        = 0.2 // Initial interval length (not used here)
+     x0       = 0;
+     f        = more_thuente_1; // From Functions directory
+     fs       = grad_more_thuente_1; // From Functions directory
+     fss      = []; // No second derivatives given
+     xmin     = 0;
+     xmax     = 16;
+
+     x = []; y = [];
+
+     x=xmin:(xmax-xmin)/100.0:xmax;
+
+     for i=1:size(x,2)
+       y(i)=f(x(i));
+     end
+
+     plot(x,y,'b-');
+     xgrid(2);
+
+     [h_fin, history] = ls_newton(f, fs, fss, x0, -fs(x0), h, Log, TOL, ItMAX, condtest);
+
+     y = [];
+     x = [];
+
+     for i=1:size(history,2)
+       y(i)=f(history(i));
+     end
+
+     plot(history,y,'r+');
+  ]]></EXAMPLE>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> plot_cond_strong_wolfe </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> cond_wolfe </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> cond_armijo </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> cond_goldstein </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</MAN>

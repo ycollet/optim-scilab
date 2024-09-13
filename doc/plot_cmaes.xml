@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>plot_cmaes</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>29-Nov-2006</DATE>
+  <SHORT_DESCRIPTION name="plot_cmaes"> A CMAES helper function which plot informations related to a CMAES-based optimization </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>plot_cmaes(_log,title,plotmin,plot_eigen)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>_log</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a log variable generated via the function cmaes [xmin, log] = cmaes(...) (mandatory)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>title</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a title of the graph (optional)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>plotmin</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a boolean. If true, we plot in red a line representing the evolution of the min value
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>plot_eigen</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : plot the evolution of the eigen values
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+     A CMAES helper function which plot informations related to a CMAES-based optimization
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <EXAMPLE><![CDATA[
+  x_min  = get_min_bound_rosenbrock()';
+  x_max  = get_max_bound_rosenbrock()';
+  x0     = (x_max - x_min)*rand(size(x_max,1),size(x_max,2)) + x_min;
+  x_step = (x_max - x_min)/100;
+  [xmin, fmin, _log] = cmaes(fsphere, x0, Log = %T);
+  Title = sprintf('Rosenbrock function - xmin = [%f %f] - fmin = %f', xmin(1), xmin(2), fmin);
+  plot_cmaes(_log,Title,plotmin=PlotMin, plot_eigen=PlotEigen);
+  [X, Y] = meshgrid(x_min(1):x_step(1):x_max(1), x_min(2):x_step(2):x_max(2));
+  for i=1:size(X,1)
+    for j=1:size(X,2)
+      Z(i,j) = rosenbrock([X(i,j) Y(i,j)]);
+    end
+  end
+  scf();
+  surf(X,Y,Z);
+  xtitle('Rosenbrock Function','X','Y','Z');
+  ]]></EXAMPLE>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> cmaes </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</MAN>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>DiffEvol</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>29-Nov-2006</DATE>
+  <SHORT_DESCRIPTION name="DiffEvol"> minimization of a function using the differential evolution (DE) algorithm </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>[optarg,optval,nfeval] = DiffEvol(fct,VTR,XVmin,XVmax,USERDATA,NP,itermax,F,CR,strategy,report)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>fct</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : cost function to minimize (can be fct(x,USERDATA) or fct(x))
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>VTR</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : "Value To Reach". DiffEvol will stop its minimization if either the maximum number of iterations "itermax" is reached
+       or the best parameter vector "optarg" has found a value f(optarg,y) <= VTR.
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>XVmin</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : vector of lower bounds XVmin(1) ... XVmin(D) of initial population *** note: these are not bound constraints!! ***
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>XVmax</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : vector of upper bounds XVmax(1) ... XVmax(D) of initial population
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>USERDATA</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       :  problem data vector which is passed transparently to the cost function fct
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>NP</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : number of population members
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>itermax</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : maximum number of iterations (generations)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>F</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : DE-stepsize F from interval [0, 2] for strategies 3 and 8 this has 2 components
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>CR</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : crossover probability constant from interval [0, 1]
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>strategy</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : 1 --> DE/best/1/exp           6 --> DE/best/1/bin
+         2 --> DE/rand/1/exp           7 --> DE/rand/1/bin
+         3 --> DE/rand-to-best/1/exp   8 --> DE/rand-to-best/1/bin
+         4 --> DE/best/2/exp           9 --> DE/best/2/bin
+         5 --> DE/rand/2/exp           else  DE/rand/2/bin
+         Experiments suggest that /bin likes to have a slightly larger CR than /exp.
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>report</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : intermediate output will be produced after "report" iterations. No intermediate output will be produced if report is < 1
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>optarg</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : parameter vector with best solution
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>optval</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : best objective function value
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>nfeval</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : number of function evaluations
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+     minimization of a user-supplied function with respect to x(1:D), using the differential evolution (DE) algorithm of Rainer Storn
+     (http://www.icsi.berkeley.edu/~storn/code.html)
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <EXAMPLE><![CDATA[
+    VTR      = 1.e-6;
+    XVmin    = [-2;-2];
+    XVmax    = [2;2];
+    y        = [];
+    NP       = 15;
+    itermax  = 200;
+    F        = 0.8;
+    CR       = 0.8;
+    strategy = 7;
+    report   = 10;
+
+    [x,f,nf] = DiffEvol(rosenbrock,VTR,D,XVmin,XVmax,y,NP,itermax,F,CR,strategy,report)
+  ]]></EXAMPLE>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='Di Carlo'>
+    Walter DI CARLO (walter.dicarlo@jrc.it)
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='Jarausch'>
+    Helmut JARAUSCH (jarausch@igpm.rwth-aachen.de)
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</MAN>

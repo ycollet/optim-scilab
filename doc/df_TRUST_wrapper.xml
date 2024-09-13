@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>df_TRUST_wrapper</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>27-Oct-2006</DATE>
+  <SHORT_DESCRIPTION name="df_TRUST_wrapper"> a derivatives objective function wrapper. It returns a smoothed objective function </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>Res = df_TRUST_wrapper(f,df,x,x_star,a,k,p)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>f</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the objective function to be smoothed
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>df</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the first derivative of the objective function to be smoothed
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the value of the variables where the derivative of the smoothed function must be evaluated
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x_star</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the value of the last solution or the initial point
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>a</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a smoothing coefficient. By default, a = 1.0
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>k</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a weight coefficient. By default, k = 1.0
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>p</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the value of the power coefficient. By default, p = 4/3
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Res</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the value of the derivative of the smoothed function
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+      This function is a wrapper around an objective function. It returns the derivative of the smoothed function.
+      From the original method, only the smoothing wrapper is implemented here. This wrapper has been modified for use
+      with an optimization method (and not with a dynamic system as with the original method).
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <EXAMPLE><![CDATA[
+    functoplot = hansen; // from Functions directory
+    delta = 0.05;
+    NbRestart   = 3;
+    Min = get_min_bound_hansen();
+    Max = get_max_bouns_hansen();
+    x0   = (Max - Min) * rand(1,1) + Min;
+    xmin = x0;
+
+    deff('y=f_gr_trust(x)','y = f_TRUST_wrapper(functoplot, x, xmin)');
+    deff('y=f_gr_trust_trsp(x)','y = f_TRUST_wrapper(functoplot, x, xmin'')');
+    deff('y=df_gr_trust(x)','y = derivative(f_gr_trust_trsp, x'')');
+    
+    function [f, g, ind] = f_optim(x, ind)
+    select ind
+      case 1 then
+        // Do noting
+      case 2
+        // Return f
+        f = f_gr_trust(x);
+      case 3
+        // Return g
+        g = df_gr_trust(x);
+      case 4
+        // Return f and g
+        f = f_gr_trust(x);
+        g = df_gr_trust(x);
+    end
+    endfunction
+    // Start the optimization
+    printf('Initial iteration\n');
+    printf('xmin = '); disp(xmin)
+    [f_opt, x_opt]= optim(f_optim, x0);
+    param3d1(x_opt(1), x_opt(2), list(f_opt,-9))
+    printf('xopt = '); disp(x_opt)
+    printf('f_opt = %f\n', functoplot(x_opt));
+    xmin = x_opt;
+    // Perform several restart
+    scf();
+    for i = 1:NbRestart
+      printf('Iteration %d / %d\n', i, NbRestart);
+      printf('xmin = '); disp(xmin)
+      xdelta = (Max-Min)*rand(1,1) - Min;
+      [f_opt, x_opt] = optim(f_optim, x_opt+xdelta);
+      printf('xopt = '); disp(x_opt)
+      printf('f_opt = %f\n', functoplot(x_opt));
+      xmin = x_opt;
+    end
+  ]]></EXAMPLE>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> f_TRUST_wrapper </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+
+  <BIBLIO>
+    <SP>
+     B. C. Cetin, J. Barhen and J. W. Burdick
+     Terminal repeller unconstrained subenergy tunneling (TRUST) for fast global optimization
+    	Journal of Optimization Theory and Applications
+     Volume 77, Number 1 / April, 1993
+    </SP>
+  </BIBLIO>
+</MAN>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1.1/lib/scilab-4.1.1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>optim_moga</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>22-Aug-2007</DATE>
+  <SHORT_DESCRIPTION name="optim_moga"> Multiobjective Genetic Algorithm </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>[pop_opt,fobj_pop_opt,pop_init,fobj_pop_init] = optim_moga(ga_f,pop_size,nb_generation,p_mut,p_cross,init_func,Log,crossover_func,mutation_func,codage_func,selection_strategy,nb_couples,pressure)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>ga_f</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the function we want to optimize (the prototype is f(x))
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>pop_size</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the size of the population (default: 100)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>nb_generation</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : maximum number of iterations (default: 10)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>p_mut</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : mutation probability (default 0.01)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>p_cross</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : crossover mutation (default 0.7)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>init_func</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a function which will produce an initial population (see the function init_func_default as an example)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Log</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : %T or %F. If %T, some informations will be displayed during the run of the multiobjective genetic algorithm
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>crossover_func</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a function which will perform a crossover between two individuals (see crossover_func_default as an example)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>mutation_func</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a function which will perform a mutation on one individual (see mutation_func_default as an example)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>codage_func</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a function which will perform a translation of a population of individuals into an intermediate representation (binary strings
+       for example). See codage_identity as an example
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>selection_strategy</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : To select what kind of selection strategy is applied to the pool of individuals. Currently, only the 'elitist' strategy is implemented
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>nb_couples</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the number of couples produced during one generation (default 100)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>pressure</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the minimum efficiency value for the worse individual (default: 0.05 - the efficiency interval is 0 to 1)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>pop_opt</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the population of individuals obtained at the last generation
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>fobj_pop_opt</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the set of corresponding objective functions values obtained at the last generation
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>pop_init</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the initial population (optional parameter)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>fobj_pop_init</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the set of corresponding objective function values obtained for the initial population (optional parameter)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+      The multiobjective genetic algorithm. This genetic algorithm uses tournament selection when building couples.
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> codage_identity </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> init_func_default </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> mutation_func_default </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> crossover_func_default </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_ga </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_nsga </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_nsga2 </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</MAN>

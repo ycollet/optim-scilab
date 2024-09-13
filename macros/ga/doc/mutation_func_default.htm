@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>mutation_func_default</title>
+</head>
+<body bgcolor="#FFFFFF">
+<center>Scilab Function  </center>
+<div align="right">Last update : 08/12/2006</div>
+<p><b>mutation_func_default</b> -  A GA function which mutates an individual </p>
+<h3><font color="blue">Calling Sequence</font></h3>
+<dl><dd><tt>Mut_Indiv = mutation_func_default(Indiv)</tt></dd></dl>
+<h3><font color="blue">Parameters</font></h3>
+<ul>
+<li>
+<tt><b>Indiv</b></tt>
+       : The individual which will be mutated
+       </li>
+<li>
+<tt><b>Mut_Indiv</b></tt>
+       : The mutated individual
+       </li>
+</ul>
+<h3><font color="blue">Description</font></h3>
+<dl><dd>
+<b></b><p>
+     A GA function which mutates an individual
+     </p>
+</dd></dl>
+<h3><font color="blue">Examples</font></h3>
+<pre>
+    // We add a uniformly distributed random value to each parameter of the given vector
+    function Mut_Indiv = mutation_func_default(Indiv)
+      Delta = 0.1;
+      MinBounds = -2*ones(size(Indiv,1),size(Indiv,2));
+      MaxBounds =  2*ones(size(Indiv,1),size(Indiv,2));
+
+      Mut_Indiv = Indiv + 2*Delta*rand(size(Indiv,1),size(Indiv,2)) - Delta*ones(size(Indiv,1),size(Indiv,2));
+
+      Mut_Indiv = max(min(Mut_Indiv, MaxBounds),MinBounds);
+    endfunction
+  </pre>
+<h3><font color="blue">See Also</font></h3>
+<p><a href=""><tt><b> optim_ga </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> init_func_default </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> crossover_func_default </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> codage_identity </b></tt></a>,&nbsp;&nbsp;</p>
+<h3><font color="blue">Authors</font></h3>
+<dl><dd>
+<b>collette</b>
+    Yann COLLETTE (yann.collette@renault.com)
+    </dd></dl>
+</body>
+</html>

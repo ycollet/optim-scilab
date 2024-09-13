@@ -1,0 +1,50 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>init_func_default</title>
+</head>
+<body bgcolor="#FFFFFF">
+<center>Scilab Function  </center>
+<div align="right">Last update : 08/12/2006</div>
+<p><b>init_func_default</b> -  A GA function which produces an initial population of individuals </p>
+<h3><font color="blue">Calling Sequence</font></h3>
+<dl><dd><tt>Pop_init = init_func_default(popsize)</tt></dd></dl>
+<h3><font color="blue">Parameters</font></h3>
+<ul>
+<li>
+<tt><b>popsize</b></tt>
+       : The size of the population we want to produce
+       </li>
+<li>
+<tt><b>Pop_init</b></tt>
+       : The initialized population. Be careful: Pop_init must be a list (Pop_init = list())
+       </li>
+</ul>
+<h3><font color="blue">Description</font></h3>
+<dl><dd>
+<b></b><p>
+     A GA function which produces an initial population of individuals
+     </p>
+</dd></dl>
+<h3><font color="blue">Examples</font></h3>
+<pre>
+    // We produce a population of vectors of size 2 between -2 and +2
+    function Pop_init = init_func_default(popsize)
+      Dim = 2;
+      Max = 2*ones(1,Dim);
+      Min = -2*ones(1,Dim);
+      Pop_init = list();
+      for i=1:pop_size
+        Pop_init(i) = (Max - Min).*rand(size(Max,1),size(Max,2)) + Min;
+      end
+    endfunction
+  </pre>
+<h3><font color="blue">See Also</font></h3>
+<p><a href=""><tt><b> optim_ga </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> crossover_func_default </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> mutation_func_default </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> codage_identity </b></tt></a>,&nbsp;&nbsp;</p>
+<h3><font color="blue">Authors</font></h3>
+<dl><dd>
+<b>collette</b>
+    Yann COLLETTE (yann.collette@renault.com)
+    </dd></dl>
+</body>
+</html>

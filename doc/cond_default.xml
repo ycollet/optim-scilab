@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>cond_default</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>27-Oct-2006</DATE>
+  <SHORT_DESCRIPTION name="cond_default">  a default condition tester which return %T every time it is called </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>answer = cond_default(xk,pk,f,fs,fk,fsk,alpha)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>xk</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : point where to test the Armijo condition
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>pk</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : search direction
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>f</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : objective function
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>fs</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : derivative function of the objective function
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>fk</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : value of the objective function  at point xk
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>fsk</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : value of the derivative function at point xk
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>alpha</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : value of the step to test
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>answer</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : always %T 
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+      Returns %T every time it is called.
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> cond_armijo </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_bfgs </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='Collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</MAN>

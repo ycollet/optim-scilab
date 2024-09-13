@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>codage_identity</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>29-Nov-2006</DATE>
+  <SHORT_DESCRIPTION name="codage_identity"> A GA function which encodes an individual into an intermediate representation </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>pop_out = codage_identity(pop_in,direction)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>pop_in</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the population of individuals to transform. Be careful: pop_in is a list
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>direction</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a string which indicates the type of process we ant to perform: 'code' or 'decode'
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>pop_out</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the transformed population of individuals. Be careful, pop_out must be a list
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+     A GA function which encodes an individual into an intermediate representation.
+     This function implement an identity transformation which allows the GA to behave like an evolution strategy.
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <EXAMPLE><![CDATA[
+  function [pop_out] = codage_identity(pop_in, direction)
+  if (direction=='code') then
+    pop_out = pop_in;
+  elseif (direction=='decode') then
+    pop_out = pop_in;
+  else
+    error('codage_identity: wrong direction');
+  end
+  endfunction
+  ]]></EXAMPLE>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> optim_ga </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> init_func_default </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> crossover_func_default </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> mutation_func_default </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</MAN>

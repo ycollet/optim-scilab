@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>plot_d</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>27-Oct-2006</DATE>
+  <SHORT_DESCRIPTION name="plot_d"> A function to plot the shape of a given function along a given direction </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>plot_d(f,x0,d,lbounds,ubounds,restrtomin,hlow,hup)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>f</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the function to plot
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x0</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the initial point
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>d</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the direction
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>lbounds</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a vector of lower boundary for the definition domain of the function f
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>ubounds</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a vector of upper boundary for the definition domain of the function f
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>restrtomin</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a boolean to plot only up to the min of the function (optional parameter)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>hlow</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : lower boundary on the h parameter (optional parameter)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>hup</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : upper boundary on the h parameter (optional parameter)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+     this function plot a function of several variables in the direction given by vector d between lbounds and ubounds     
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <EXAMPLE><![CDATA[
+   deff('y=f(x)','y=sum(x.^2)');
+   x0 = 2*ones(4,1);
+   d  = -4*ones(4,1); // The gradient of f at x0
+   lbounds = -4*ones(4,1);
+   ubounds = 4*ones(4,1);
+   h_max = 2;
+   plot_d(f, x0, d, lbounds, ubounds, %T, 0, h_max);
+  ]]></EXAMPLE>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> plot_cond_armijo </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> plot_cond_goldstein </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> plot_cond_wolfe </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> plot_cond_strong_wolfe </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</MAN>

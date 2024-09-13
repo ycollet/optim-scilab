@@ -1,0 +1,54 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>codage_identity</title>
+</head>
+<body bgcolor="#FFFFFF">
+<center>Scilab Function  </center>
+<div align="right">Last update : 08/12/2006</div>
+<p><b>codage_identity</b> -  A GA function which encodes an individual into an intermediate representation </p>
+<h3><font color="blue">Calling Sequence</font></h3>
+<dl><dd><tt>pop_out = codage_identity(pop_in,direction)</tt></dd></dl>
+<h3><font color="blue">Parameters</font></h3>
+<ul>
+<li>
+<tt><b>pop_in</b></tt>
+       : the population of individuals to transform. Be careful: pop_in is a list
+       </li>
+<li>
+<tt><b>direction</b></tt>
+       : a string which indicates the type of process we ant to perform: 'code' or 'decode'
+       </li>
+<li>
+<tt><b>pop_out</b></tt>
+       : the transformed population of individuals. Be careful, pop_out must be a list
+       </li>
+</ul>
+<h3><font color="blue">Description</font></h3>
+<dl><dd>
+<b></b><p>
+     A GA function which encodes an individual into an intermediate representation.
+     This function implement an identity transformation which allows the GA to behave like an evolution strategy.
+     </p>
+</dd></dl>
+<h3><font color="blue">Examples</font></h3>
+<pre>
+  function [pop_out] = codage_identity(pop_in, direction)
+  if (direction=='code') then
+    pop_out = pop_in;
+  elseif (direction=='decode') then
+    pop_out = pop_in;
+  else
+    error('codage_identity: wrong direction');
+  end
+  endfunction
+  </pre>
+<h3><font color="blue">See Also</font></h3>
+<p><a href=""><tt><b> optim_ga </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> init_func_default </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> crossover_func_default </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> mutation_func_default </b></tt></a>,&nbsp;&nbsp;</p>
+<h3><font color="blue">Authors</font></h3>
+<dl><dd>
+<b>collette</b>
+    Yann COLLETTE (yann.collette@renault.com)
+    </dd></dl>
+</body>
+</html>

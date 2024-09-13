@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>ls_goldsect</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>27-Oct-2006</DATE>
+  <SHORT_DESCRIPTION name="ls_goldsect"> the gold section method for f </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>[hs,history] = ls_goldsect(f,fs,fss,x0,d,h,Log,TOL,ItMX,cond_func)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>f</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the objective function
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>fs</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the function which evaluates the first derivative of the objective function
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>fss</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the function which evaluates the second derivative of the objective function
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x0</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : initial point
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>d</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the search direction
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>h</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : initial interval length
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Log</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : %T if you want to see some informations related to the run of the function
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>TOL</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : convergence tolerance: (x3-x1)<TOL, default: 1.0e-8
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>ItMX</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : maximal number of iterations, default: 25
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>cond_func</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : function to test the validity of the step
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>hs</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : interval length which corresponds to the first valid interval length found so far
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>history</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : list of computed points in the parameter space
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+      This function implements the gold section method for an objective function.
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <EXAMPLE><![CDATA[
+     condtest = cond_cond_strong_wolfe;
+     ItMAX    = 100;
+     TOL      = 1e-4;
+     Log      = %T; // Display some informations during the line search run
+     h        = 0.2 // Initial interval length (not used here)
+     x0       = 0;
+     f        = more_thuente_1; // From Functions directory
+     fs       = grad_more_thuente_1; // From Functions directory
+     fss      = []; // No second derivatives given
+     xmin     = 0;
+     xmax     = 16;
+
+     x = []; y = [];
+
+     x=xmin:(xmax-xmin)/100.0:xmax;
+
+     for i=1:size(x,2)
+       y(i)=f(x(i));
+     end
+
+     plot(x,y,'b-');
+     xgrid(2);
+
+     [h_fin, history] = ls_goldsect(f, fs, fss, x0, -fs(x0), h, Log, TOL, ItMAX, condtest);
+
+     y = [];
+     x = [];
+
+     for i=1:size(history,2)
+       y(i)=f(history(i));
+     end
+
+     plot(history,y,'r+');
+  ]]></EXAMPLE>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> cond_armijo </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> cond_wolfe </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> cond_strong_wolfe </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> cond_goldstein </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</MAN>

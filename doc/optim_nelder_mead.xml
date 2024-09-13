@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>optim_nelder_mead</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>27-Nov-2006</DATE>
+  <SHORT_DESCRIPTION name="optim_nelder_mead"> A Nelder & Mead optimization method </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>[x_opt,eval_Func,f_hist,x_hist] = optim_nelder_mead(f,x0,ItMX,Tol,MaxEvalFunc)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>f</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : objective function
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x0</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : initial starting simplex (must be 3 column vectors)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>ItMX</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the maximum of Nelder & Mead iteration steps (optional parameter: ItMX = 100)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Tol</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a tolerance on the value of the objective function between 2 consecutive iterations (optional parameter: Tol = 0.0)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>MaxEvalFunc</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : maximum number of objective function evaluation (in 1 Nelder & Mead iteration, there are several function evaluation) (optional parameter: MaxEvalFunc = 10*ItMX)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x_opt</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the best solution found so far
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>eval_Func</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the number of call to the objective function
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>f_hist</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the list of each objective function value compute so far
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x_hist</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the list of each parameters tested so far
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+      A Nelder & Mead optimization method
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <EXAMPLE><![CDATA[
+    functoplot = hansen; // from Functions directory
+    ItMX = 100;
+    TOL  = 1e-4;
+    MaxEvalFunc = 400;
+    Min = get_min_bound_hansen();
+    Max = get_max_bouns_hansen();
+    x_init(:,1) = (Max - Min).*rand(2, 1) + Min;
+    x_init(:,2) = (Max - Min).*rand(2, 1) + Min;
+    x_init(:,3) = (Max - Min).*rand(2, 1) + Min;
+    
+    // Start the optimization
+    printf('Initial iteration\n');
+    printf('x_init = '); disp(x_init)
+    // fss is not needed here because the default line search method doesn't need a second derivative function
+    [x_opt, eval_Func, f_hist, x_hist] = optim_nelder_mead(functoplot, x_init, ItMX, TOL, MaxEvalFunc);
+    printf('xopt = '); disp(x_opt)
+    printf('f_opt = %f\n', functoplot(x_opt));
+  ]]></EXAMPLE>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> optim_cg </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_dfp </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_bfgs </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> step_nelder_mead </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_steepest </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</MAN>

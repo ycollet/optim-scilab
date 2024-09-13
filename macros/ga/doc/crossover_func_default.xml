@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>crossover_func_default</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>29-Nov-2006</DATE>
+  <SHORT_DESCRIPTION name="crossover_func_default">  A GA function which performs a crossover between 2 selected individuals </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>[Crossed_Indiv1,Crossed_Indiv2] = crossover_func_default(Indiv1,Indiv2)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Indiv1</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : The first individual on which we will perform the crossover
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Indiv2</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : The second individual on which we will perform the crossover
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Crossed_Indiv1</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : The first child (a result of the crossing over of Indiv1 and Indiv2) 
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Crossed_Indiv2</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : The second child (a result of the crossing over of Indiv1 and Indiv2)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+     A GA function which performs a crossover between 2 selected individuals
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <EXAMPLE><![CDATA[
+    // A blending crossover for continuous optimization
+    function [Crossed_Indiv1, Crossed_Indiv2] = crossover_func_default(Indiv1, Indiv2)
+      mix = rand(1,1);
+      Crossed_Indiv1 =     mix*Indiv1 + (1-mix)*Indiv2;
+      Crossed_Indiv2 = (1-mix)*Indiv1 +     mix*Indiv2;
+    endfunction
+  ]]></EXAMPLE>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> optim_ga </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> codage_identity </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> init_func_default </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> mutation_func_default </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</MAN>

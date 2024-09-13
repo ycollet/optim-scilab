@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1.1/lib/scilab-4.1.1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>pareto_filter</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>22-Aug-2007</DATE>
+  <SHORT_DESCRIPTION name="pareto_filter"> A function which extracts a Pareto frontier from a given data set </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>[F_out,X_out,Ind_out] = pareto_filter(F_in,X_in)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>F_in</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a vector of objective functions values (dimension: nbpoints x nbobjfunc)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>X_in</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a list of points coordinate which corresponds to F_in (optional parameter)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>F_out</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a vector of objective functions values which belong to the Pareto frontier
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>X_out</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a list of points coordinate which corresponds to F_out (optional parameter)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Ind_out</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : a vector of indexes of the points in F_in (and X_in) which belongs to the Pareto frontier (F_out = F_in(Ind_out,:))
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+      A function which extracts points which belong to the Pareto frontier.
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> codage_identity </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> init_func_default </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> mutation_func_default </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> crossover_func_default </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_ga </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_moga </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_nsga </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_nsga2 </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</MAN>

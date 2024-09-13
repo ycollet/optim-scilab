@@ -1,0 +1,54 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>crossover_func_default</title>
+</head>
+<body bgcolor="#FFFFFF">
+<center>Scilab Function  </center>
+<div align="right">Last update : 08/12/2006</div>
+<p><b>crossover_func_default</b> -   A GA function which performs a crossover between 2 selected individuals </p>
+<h3><font color="blue">Calling Sequence</font></h3>
+<dl><dd><tt>[Crossed_Indiv1,Crossed_Indiv2] = crossover_func_default(Indiv1,Indiv2)</tt></dd></dl>
+<h3><font color="blue">Parameters</font></h3>
+<ul>
+<li>
+<tt><b>Indiv1</b></tt>
+       : The first individual on which we will perform the crossover
+       </li>
+<li>
+<tt><b>Indiv2</b></tt>
+       : The second individual on which we will perform the crossover
+       </li>
+<li>
+<tt><b>Crossed_Indiv1</b></tt>
+       : The first child (a result of the crossing over of Indiv1 and Indiv2) 
+       </li>
+<li>
+<tt><b>Crossed_Indiv2</b></tt>
+       : The second child (a result of the crossing over of Indiv1 and Indiv2)
+       </li>
+</ul>
+<h3><font color="blue">Description</font></h3>
+<dl><dd>
+<b></b><p>
+     A GA function which performs a crossover between 2 selected individuals
+     </p>
+</dd></dl>
+<h3><font color="blue">Examples</font></h3>
+<pre>
+    // A blending crossover for continuous optimization
+    function [Crossed_Indiv1, Crossed_Indiv2] = crossover_func_default(Indiv1, Indiv2)
+      mix = rand(1,1);
+      Crossed_Indiv1 =     mix*Indiv1 + (1-mix)*Indiv2;
+      Crossed_Indiv2 = (1-mix)*Indiv1 +     mix*Indiv2;
+    endfunction
+  </pre>
+<h3><font color="blue">See Also</font></h3>
+<p><a href=""><tt><b> optim_ga </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> codage_identity </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> init_func_default </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> mutation_func_default </b></tt></a>,&nbsp;&nbsp;</p>
+<h3><font color="blue">Authors</font></h3>
+<dl><dd>
+<b>collette</b>
+    Yann COLLETTE (yann.collette@renault.com)
+    </dd></dl>
+</body>
+</html>

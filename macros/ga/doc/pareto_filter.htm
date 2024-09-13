@@ -1,0 +1,49 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>pareto_filter</title>
+</head>
+<body bgcolor="#FFFFFF">
+<center>Scilab Function  </center>
+<div align="right">Last update : 22/08/2007</div>
+<p><b>pareto_filter</b> -  A function which extracts a Pareto frontier from a given data set </p>
+<h3><font color="blue">Calling Sequence</font></h3>
+<dl><dd><tt>[F_out,X_out,Ind_out] = pareto_filter(F_in,X_in)</tt></dd></dl>
+<h3><font color="blue">Parameters</font></h3>
+<ul>
+<li>
+<tt><b>F_in</b></tt>
+       : a vector of objective functions values (dimension: nbpoints x nbobjfunc)
+       </li>
+<li>
+<tt><b>X_in</b></tt>
+       : a list of points coordinate which corresponds to F_in (optional parameter)
+       </li>
+<li>
+<tt><b>F_out</b></tt>
+       : a vector of objective functions values which belong to the Pareto frontier
+       </li>
+<li>
+<tt><b>X_out</b></tt>
+       : a list of points coordinate which corresponds to F_out (optional parameter)
+       </li>
+<li>
+<tt><b>Ind_out</b></tt>
+       : a vector of indexes of the points in F_in (and X_in) which belongs to the Pareto frontier (F_out = F_in(Ind_out,:))
+       </li>
+</ul>
+<h3><font color="blue">Description</font></h3>
+<dl><dd>
+<b></b><p>
+      A function which extracts points which belong to the Pareto frontier.
+     </p>
+</dd></dl>
+<h3><font color="blue">See Also</font></h3>
+<p><a href=""><tt><b> codage_identity </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> init_func_default </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> mutation_func_default </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> crossover_func_default </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> optim_ga </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> optim_moga </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> optim_nsga </b></tt></a>,&nbsp;&nbsp;<a href=""><tt><b> optim_nsga2 </b></tt></a>,&nbsp;&nbsp;</p>
+<h3><font color="blue">Authors</font></h3>
+<dl><dd>
+<b>collette</b>
+    Yann COLLETTE (yann.collette@renault.com)
+    </dd></dl>
+</body>
+</html>

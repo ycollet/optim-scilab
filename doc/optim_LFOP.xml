@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>optim_LFOP</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>6-Dec-2006</DATE>
+  <SHORT_DESCRIPTION name="optim_LFOP">  The Leap-Frog Optimizer</SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>[x_opt,x_history] = optim_LFOP(grad_f,x0,delta_t,delta_step,m,delta_inc,GradTOL,MaxEvalFunc,Log,p_start)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>grad_f</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the gradient of the objective function to optimize
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x0</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the starting point
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>delta_t</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the time interval for the resolution of the dynamic system (the time step is adjusted automatically during the running of the algorithm)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>delta_step</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : maximal allowable step size
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>m</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : id ak+1'.ak is non positive during m iterations then delta_t = delta_t / 2 and we restart from (xk+xk+1) / 2
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>delta_inc</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : increase factor of the dilatation coeff of delta_t
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>GradTOL</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : we stop the algorithm if the gradient is below the GradTOL level
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>MaxEvalFunc</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : we stop the algorithm when we have computed more than MaxEvalFunc the gradient
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Log</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : if %T, we display some informations during the running of the algorithm
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>p_start</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : starting value of the dilatation coefficient: 1.01 by default
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x_opt</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the last xk computed (the best solution)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x_history</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the list of xk computed during the run of the optimization method
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+      This function is the LFOP (Leap-Frop Optimizer) optimization method. It optimizes a function via the resolution of a dynamic system.
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <EXAMPLE><![CDATA[
+  deff('y=df_rosenbrock(x)','y=derivative(rosenbrock,x)''');
+
+  x0 = [-1.2; 1];
+  delta_t = 0.5;
+  delta_1 = 0.01;
+  epsilon = 1e-5;
+  delta   = 0.1; 
+  m       = 3;
+  MaxEvalFunc = 400;
+  p_start = 1.1;
+
+  [x_opt, x_history] = optim_LFOP(df_rosenbrock, x0, delta_t, delta, m, delta_1, epsilon, MaxEvalFunc, %T, p_start);
+
+  printf('x_opt = '); disp(x_opt);
+  printf('f(x_opt) = %f\n', rosenbrock(x_opt));
+  ]]></EXAMPLE>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> optim_sa </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_bfgs </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+
+  <BIBLIO>
+    <SP>
+    J. A. Snyman, "A new and dynamic method for unconstrained minimization", Appl. Math. Modelling, Vol. 6, 1982
+    </SP>
+    <SP>
+    J. A. Snyman, "An improved version of the original leap-frog dynamic method for unconstrained minimization: LFOP1(b)", Appl. Math. Modelling, Vol. 7, 1983
+    </SP>
+  </BIBLIO>
+</MAN>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>cmaes</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>29-Nov-2006</DATE>
+  <SHORT_DESCRIPTION name="cmaes">  Covariance Matrix Adaptation Evolution Strategy </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>[xmin,fmin,_log] = cmaes(f,x0,sigma,stopfitness,stopeval,mu,lambda,Log)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>f</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the objective function (mandatory)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x0</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the value of the initial point (mandatory)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>sigma</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : coordinate wise standard deviation (step size) (optional)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>stopfitness</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : stop if fitness < stopfitness (minimization) (optional)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>stopeval</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : stop after stopeval number of function evaluations (optional)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>mu</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : number of parents / point for recombination (optional)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>lambda</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : size of the population (optional)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Log</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : display some text during the run of CMAES
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>xmin</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : best solution found (mandatory)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>fmin</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the objective function value of the best solution found (optional)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>_log</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the population and objective function values for each iteration (optional)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+    CMA-ES: Evolution Strategy with Covariance Matrix Adaptation for nonlinear function minimization. To be used under the terms of the
+    GNU General Public License (http://www.gnu.org/copyleft/gpl.html).
+    This code is an excerpt from cmaes.m and implements the key parts of the algorithm. It is intendend to be used for READING and
+    UNDERSTANDING the basic flow and all details of the CMA algorithm.
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <EXAMPLE><![CDATA[
+  x_min  = get_min_bound_rosenbrock()';
+  x_max  = get_max_bound_rosenbrock()';
+  x0     = (x_max - x_min)*rand(size(x_max,1),size(x_max,2)) + x_min;
+  x_step = (x_max - x_min)/100;
+  [xmin, fmin, _log] = cmaes(fsphere, x0, Log = %T);
+  Title = sprintf('Rosenbrock function - xmin = [%f %f] - fmin = %f', xmin(1), xmin(2), fmin);
+  plot_cmaes(_log,Title,plotmin=PlotMin, plot_eigen=PlotEigen);
+  [X, Y] = meshgrid(x_min(1):x_step(1):x_max(1), x_min(2):x_step(2):x_max(2));
+  for i=1:size(X,1)
+    for j=1:size(X,2)
+      Z(i,j) = rosenbrock([X(i,j) Y(i,j)]);
+    end
+  end
+  scf();
+  surf(X,Y,Z);
+  xtitle('Rosenbrock Function','X','Y','Z');
+  ]]></EXAMPLE>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> plot_cmaes </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+    <AUTHORS_ITEM label='hansen'>
+    Nikolaus HANSEN (hansen@bionik.tu-berlin.de)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</MAN>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE MAN SYSTEM "file:///local/stow/scilab-4.1rc1/lib/scilab-4.1-rc1/man/manrev.dtd">
+<MAN>
+  <LANGUAGE>eng</LANGUAGE>
+  <TITLE>optim_dfp</TITLE>
+  <TYPE>Scilab Function  </TYPE>
+  <DATE>27-Oct-2006</DATE>
+  <SHORT_DESCRIPTION name="optim_dfp"> A second order optimization method (DFP) </SHORT_DESCRIPTION>
+
+  <CALLING_SEQUENCE>
+  <CALLING_SEQUENCE_ITEM>x_opt = optim_dfp(x0,f,fs,fss,h,Log,ItMX,ls_ItMX,lsm,condtest,TOL,StepTOL,XTOL,SubTOL)</CALLING_SEQUENCE_ITEM>
+  </CALLING_SEQUENCE>
+
+  <PARAM>
+  <PARAM_INDENT>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x0</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : initial starting point (must be a column vector)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>f</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : objective function
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>fs</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : gradient of the objective function (must return a column vector)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>fss</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : hessian of the objective function (may be optional: depends on the chosen line search method)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>h</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : size of the initial step (optional parameter: h = 0.00125)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>Log</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : verbose mode or not (%T / %F) (optional parameter: Log = %F)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>ItMX</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : number of steepest descent step (optional parameter: ItMX = 50)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>ls_ItMX</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : number of iterations of the line search (optional parameter: ls_ItMX = 100)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>lsm</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : type of line search method (optional parameter: lsm = ls_goldsect)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>condtest</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : type of test for the validity of the step size (cond_default is equivalent to exact line search) (optional parameter: cond_test = cond_default)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>TOL</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : accuracy for convergence test - derivatives (optional parameter: TOL = 1e-4)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>StepTOL</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : accuracy for convergence test - size of the step (optional parameter: StepTOL = 1e-4)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>XTOL</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : accuracy for convergence test - improvement on x between two iterations (optional parameter: XTOL = 1e-4)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>SubTOL</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : accuracy for convergence test (line search) (optional parameter: SubTOL = 1e-2)
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+
+    <PARAM_ITEM>
+    <PARAM_NAME>x_opt</PARAM_NAME>
+    <PARAM_DESCRIPTION>
+       <SP>
+       : the best solution found so far
+       </SP>
+    </PARAM_DESCRIPTION>
+    </PARAM_ITEM>
+  </PARAM_INDENT>
+  </PARAM>
+ 
+  <DESCRIPTION>
+     <DESCRIPTION_INDENT>
+     <DESCRIPTION_ITEM>
+     <P>
+     A second order optimization method (DFP)
+     </P>
+     </DESCRIPTION_ITEM>
+     </DESCRIPTION_INDENT>
+  </DESCRIPTION>
+
+  <EXAMPLE><![CDATA[
+    functoplot = hansen; // from Functions directory
+    delta = 0.05;
+    NbRestart   = 3;
+    Min = get_min_bound_hansen();
+    Max = get_max_bouns_hansen();
+    x0   = (Max - Min) * rand(1,1) + Min;
+    xmin = x0;
+
+    deff('y=df(x)','y = derivative(functoplot, x'')');
+    
+    // Start the optimization
+    printf('Initial iteration\n');
+    printf('xmin = '); disp(xmin)
+    // fss is not needed here because the default line search method doesn't need a second derivative function
+    [f_opt, x_opt]= optim_dfp(x0, functoplot, df, []);
+    printf('xopt = '); disp(x_opt)
+    printf('f_opt = %f\n', functoplot(x_opt));
+  ]]></EXAMPLE>
+
+  <SEE_ALSO>
+    <SEE_ALSO_ITEM> <LINK> optim_cg </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_bfgs </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_nelder_mead </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> step_nelder_mead </LINK> </SEE_ALSO_ITEM>
+    <SEE_ALSO_ITEM> <LINK> optim_steepest </LINK> </SEE_ALSO_ITEM>
+  </SEE_ALSO>
+
+  <AUTHORS>
+    <AUTHORS_ITEM label='collette'>
+    Yann COLLETTE (yann.collette@renault.com)
+    </AUTHORS_ITEM>
+  </AUTHORS>
+</MAN>
